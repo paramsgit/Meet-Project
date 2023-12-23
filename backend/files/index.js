@@ -1,2 +1,2 @@
-require('socketServer')
-require('routes')
+require('./socketServer')
+require('./routes')
