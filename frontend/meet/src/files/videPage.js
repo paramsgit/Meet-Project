@@ -1,6 +1,7 @@
 import React,{useEffect, useState} from 'react'
 import { Link, useSearchParams } from 'react-router-dom'
 import CallInfo from './CallInfo';
+import ChatWindow from './chatWindow';
 const VidePage = () => {
   const [searchParams,setsearchParams]=useSearchParams();
   const [apptInfo,setapptInfo] =useState()
@@ -17,12 +18,14 @@ const VidePage = () => {
         body:  JSON.stringify({token}) 
       });
       const data = await response.json();
-      setapptInfo(data)
+      console.log(data)
+      // Here if jwt is not verified then error will come ....leaving it to done later.....
+      setapptInfo(data.decodedData)
     }
     fetchDecodedToken()
    
   }, [searchParams])
-  console.log(typeof(setsearchParams,apptInfo))
+  console.log(typeof(setsearchParams),apptInfo)
   
   return (
     <>
@@ -31,8 +34,9 @@ const VidePage = () => {
     <div className="video-chat wrapper">
       <video id='large-feed' autoPlay controls playsInline></video>
       <video id='own-feed' autoPlay controls playsInline></video>
-      {apptInfo.name ? <CallInfo apptInfo={apptInfo} /> :<></>}
-      {/* <ChatWindow/> */}
+      {/* {apptInfo.name} */}
+      {apptInfo && apptInfo.name ? <CallInfo apptInfo={apptInfo} /> :<></>}
+      <ChatWindow/>
     </div>
    </div>
 

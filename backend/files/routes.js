@@ -20,13 +20,13 @@ app.get('/user-link',(req, res)=>{
 })  
 
 app.post('/validate-link',(req,res)=>{
-    console.log(req.body)
     const token = req.body.token;
     // decode the jwt with our secret
     try {
         const decodedData = jwt.verify(token,signature);
         res.json({decodedData,isTokenVlaid:true})
     } catch (error) {
+        console.log("false ytyoken")
         res.json({error,isTokenVlaid:false})
         
     }
